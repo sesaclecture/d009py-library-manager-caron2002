@@ -1,4 +1,3 @@
-
 from __future__ import annotations
 from typing import Iterable, List
 from library.models.book import Book
@@ -15,20 +14,34 @@ class LibraryService(BaseService):
 
     def __init__(self) -> None:
         # TODO: 내부 리스트 초기화
-        pass
+        self._books = []
 
     def add_book(self, book: Book) -> None:
         # TODO: 책 추가
-        raise NotImplementedError
+        self._books.append(book)
+        # raise NotImplementedError
 
     def remove_book(self, title: str) -> None:
         # TODO: 제목으로 책 삭제 (없으면 ValueError)
-        raise NotImplementedError
+        for idx, book in enumerate(self._books):
+            if title == book.title:
+                self._books.pop(idx)
+            else:
+                raise ValueError
+        # raise NotImplementedError
 
     def list_books(self) -> Iterable[Book]:
         # TODO: 책 목록 반환 (복사본 반환 권장)
+        return self._books.copy()
+
         raise NotImplementedError
 
     def find_book(self, title: str) -> Book:
         # TODO: 제목으로 책 찾기 (없으면 ValueError)
+        for book in self._books:
+            if title == book.title:
+                return book
+            else:
+                raise ValueError
+
         raise NotImplementedError
